@@ -16,11 +16,13 @@ public class PlayerController : MonoBehaviour
 	float currentSpeed;
 
     Animator animator;
+    Transform cameraTransform;
 
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
+        cameraTransform = Camera.main.transform;
     }
 
     // Update is called once per framer
@@ -31,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputDir != Vector2.zero)
         {
-            float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg;
+            float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
             transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
         }
 
