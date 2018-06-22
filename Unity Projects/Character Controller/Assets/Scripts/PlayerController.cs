@@ -8,24 +8,22 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 2;
     public float runSpeed = 6;
 
-	public float turnSmoothTime = 0.2f;
-	float turnSmoothVelocity;
+    public float turnSmoothTime = 0.2f;
+    float turnSmoothVelocity;
 
-	public float speedSmoothTime = 0.1f;
-	float speedSmoothVelocity;
-	float currentSpeed;
+    public float speedSmoothTime = 0.1f;
+    float speedSmoothVelocity;
+    float currentSpeed;
 
     Animator animator;
     Transform cameraTransform;
 
-    // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
         cameraTransform = Camera.main.transform;
     }
 
-    // Update is called once per framer
     void Update()
     {
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -39,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
         bool running = Input.GetKey(KeyCode.LeftShift);
         float targetSpeed = (running ? runSpeed : walkSpeed) * inputDir.magnitude;
-		currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
         transform.Translate(transform.forward * currentSpeed * Time.deltaTime, Space.World);
 
